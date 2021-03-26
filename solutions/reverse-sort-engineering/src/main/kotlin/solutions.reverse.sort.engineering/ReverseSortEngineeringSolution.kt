@@ -2,10 +2,9 @@ fun main(args: Array<String>) {
     val casesNumber = readLine()!!.toInt()
 
     for (i in 1..casesNumber) {
-        // Ignore first line of case
-        readLine()
+        val lineInput = readLine()!!.split(" ")
 
-        println("Case #$i: ${computeReverseCostToSortList(readLine()!!.split(" ").map { it.toInt() })}")
+        println("Case #$i: ${findListMatchingConstraints(ProblemInput(lineInput[0].toInt(), lineInput[1].toInt()))}")
     }
 }
 
