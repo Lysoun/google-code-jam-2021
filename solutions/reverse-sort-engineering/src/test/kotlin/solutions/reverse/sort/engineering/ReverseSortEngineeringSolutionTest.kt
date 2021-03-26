@@ -1,6 +1,8 @@
 package solutions.reverse.sort.engineering
 
+import ProblemInput
 import computeReverseCostToSortList
+import findListMatchingConstraints
 import org.junit.jupiter.api.DynamicTest.dynamicTest
 import org.junit.jupiter.api.TestFactory
 import strikt.api.expectThat
@@ -8,17 +10,19 @@ import strikt.assertions.isEqualTo
 
 internal class ReverseSortEngineeringSolutionTest {
     @TestFactory
-    fun `given numbers, should count number of applications of the Reverse function in order to sort the list`() =
+    fun `given problem input, should give a list of numbers that corresponds to constraints or IMPOSSIBLE, if no such list exists`() =
         listOf(
-            listOf(4, 2, 1, 3) to 6,
-            listOf(1, 2) to 1,
-            listOf(7, 6, 5, 4, 3, 2, 1) to 12
-        ).map { (numbers, expected) ->
+            ProblemInput(4, 6) to "4 2 1 3",
+            ProblemInput(2, 1) to "",
+            ProblemInput(7, 12) to "7 6 5 4 3 2 1",
+            ProblemInput(7, 2) to "IMPOSSIBLE",
+            ProblemInput(2, 1000) to "IMPOSSIBLE",
+        ).map { (problemInput, expected) ->
             dynamicTest(
-                "given \"$numbers\", " +
-                        "should count number of applications (\"$expected\") of the Reverse function in order to sort the list"
+                "given \"$problemInput\", " +
+                        "should give a list of numbers that corresponds to constraints or IMPOSSIBLE, if no such list exists"
             ) {
-                expectThat(computeReverseCostToSortList(numbers)).isEqualTo(expected)
+                expectThat(findListMatchingConstraints(problemInput)).isEqualTo(expected)
             }
         }
 }

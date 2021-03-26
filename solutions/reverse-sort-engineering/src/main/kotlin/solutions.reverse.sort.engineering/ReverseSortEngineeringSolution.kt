@@ -36,3 +36,9 @@ fun reverseAndComputeCost(numbers: List<Int>, startingIndex: Int): Pair<List<Int
                     numbers.subList(smallestNumberPosition + startingIndex + 1, numbers.size)
             ) to smallestNumberPosition + 1
 }
+
+fun findListMatchingConstraints(problemInput: ProblemInput): String {
+    return ""
+}
+
+data class ProblemInput(val listSize: Int, val cost: Int)
