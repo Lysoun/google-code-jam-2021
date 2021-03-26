@@ -15,7 +15,8 @@ internal class MoonsAndUmbrellasSolutionTest {
             ProblemInput(4, 2, "CJCJ") to 10,
             ProblemInput(1, 3, "C?J") to 1,
             ProblemInput(2, 5, "??J???") to 0,
-            ProblemInput(2, -5, "??JJ??") to -8
+            ProblemInput(2, -5, "??JJ??") to -8,
+            ProblemInput(2, -5, "??JJ???") to -11
         ).map { (problemInput, expected) ->
             dynamicTest(
                 "given \"$problemInput\", " +
