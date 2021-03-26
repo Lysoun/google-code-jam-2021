@@ -8,36 +8,61 @@ fun main(args: Array<String>) {
     }
 }
 
-fun computeReverseCostToSortList(numbers: List<Int>): Int {
-    var totalCost = 0
-    var currentList = numbers
-    for (i in 0 until (numbers.size - 1) ) {
-        val result = reverseAndComputeCost(currentList, i)
-        currentList = result.first
-        totalCost += result.second
+const val IMPOSSIBLE = "IMPOSSIBLE"
+
+fun buildSmallestNumberPositionPerIteration(problemInput: ProblemInput): List<Int> {
+    val smallestNumberPositionPerIteration = MutableList(problemInput.listSize - 1) { 1 }
+
+    var cost = problemInput.cost - problemInput.listSize + 1
+    var i = problemInput.listSize - 1
+
+    while(cost > 0 && i > 0) {
+        if (cost >= i) {
+            cost -= i
+            smallestNumberPositionPerIteration[problemInput.listSize - i - 1] = i + 1
+        }
+        --i
     }
-    return totalCost
+
+    return smallestNumberPositionPerIteration
 }
 
-fun reverseAndComputeCost(numbers: List<Int>, startingIndex: Int): Pair<List<Int>, Int> {
-    val smallestNumberPosition = numbers.subList(startingIndex, numbers.size)
-        .mapIndexed { index, i -> index to i }
-        .minByOrNull { it.second }!!
-        .first
+fun reverseSubList(list: List<Int>, startingIndex: Int, endingIndex: Int): List<Int> {
+    return list.subList(0, startingIndex) +
+            list.subList(startingIndex, endingIndex).reversed() +
+            list.subList(endingIndex, list.size)
+}
 
-    if (smallestNumberPosition == 0) {
-        return numbers to 1
+fun buildListMatchingConstraints(problemInput: ProblemInput): List<Int> {
+    val smallestNumberPositionPerIteration = buildSmallestNumberPositionPerIteration(problemInput).reversed()
+    var listMatchingConstraints = List(problemInput.listSize) { it + 1 }
+
+    var index = problemInput.listSize - 2
+
+    for(i in smallestNumberPositionPerIteration) {
+        if (i > 1) {
+            listMatchingConstraints = reverseSubList(listMatchingConstraints, index, index + i)
+        }
+        --index
     }
 
-    return (
-            numbers.subList(0, startingIndex) +
-                    numbers.subList(startingIndex, smallestNumberPosition + startingIndex + 1).reversed() +
-                    numbers.subList(smallestNumberPosition + startingIndex + 1, numbers.size)
-            ) to smallestNumberPosition + 1
+    return listMatchingConstraints
 }
 
 fun findListMatchingConstraints(problemInput: ProblemInput): String {
-    return ""
+    // Having a cost inferior to listSize - 1 is impossible because there will be listSize - 1 iterations
+    // and each iteration has a minimum cost of 1
+    if (problemInput.cost < problemInput.listSize - 1) {
+        return IMPOSSIBLE
+    }
+
+    // Having a cost superior to listSize(listSize + 1)/2 - 1 is impossible because
+    // there will be listSize - 1 iterations and each iteration i has a maximum cost of listSize - i
+    if (problemInput.cost > problemInput.listSize * (problemInput.listSize + 1) / 2 - 1) {
+        return IMPOSSIBLE
+    }
+
+    return buildListMatchingConstraints(problemInput).joinToString(" ")
 }
 
 data class ProblemInput(val listSize: Int, val cost: Int)
