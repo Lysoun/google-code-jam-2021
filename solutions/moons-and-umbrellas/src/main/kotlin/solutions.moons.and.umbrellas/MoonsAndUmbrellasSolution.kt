@@ -10,7 +10,7 @@ fun main(args: Array<String>) {
             inputLine[0].toInt(),
             inputLine[1].toInt(),
             inputLine[2]
-        ))}}")
+        ))}")
     }
 }
 
