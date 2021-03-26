@@ -33,6 +33,6 @@ fun reverseAndComputeCost(numbers: List<Int>, startingIndex: Int): Pair<List<Int
     return (
             numbers.subList(0, startingIndex) +
                     numbers.subList(startingIndex, smallestNumberPosition + startingIndex + 1).reversed() +
-                    numbers.subList(smallestNumberPosition + 1, numbers.size)
-            ) to (smallestNumberPosition + 1)
+                    numbers.subList(smallestNumberPosition + startingIndex + 1, numbers.size)
+            ) to smallestNumberPosition + 1
 }
