@@ -12,7 +12,7 @@ internal class ReverseSortEngineeringSolutionTest {
     fun `given problem input, should give a list of numbers that corresponds to constraints or IMPOSSIBLE, if no such list exists`() =
         listOf(
             ProblemInput(4, 6) to "4 2 1 3",
-            ProblemInput(2, 1) to "",
+            ProblemInput(2, 1) to "1 2",
             ProblemInput(7, 12) to "7 6 5 4 3 2 1",
             ProblemInput(7, 2) to "IMPOSSIBLE",
             ProblemInput(2, 1000) to "IMPOSSIBLE",
