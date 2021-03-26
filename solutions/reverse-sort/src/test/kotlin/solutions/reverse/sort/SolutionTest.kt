@@ -1,6 +1,6 @@
 package solutions.reverse.sort
 
-import countReverseApplicationsToSortList
+import computeReverseCostToSortList
 import org.junit.jupiter.api.DynamicTest.dynamicTest
 import org.junit.jupiter.api.TestFactory
 import strikt.api.expectThat
@@ -18,7 +18,7 @@ internal class SolutionTest {
                 "given \"$numbers\", " +
                         "should count number of applications (\"$expected\") of the Reverse function in order to sort the list"
             ) {
-                expectThat(countReverseApplicationsToSortList(numbers)).isEqualTo(expected)
+                expectThat(computeReverseCostToSortList(numbers)).isEqualTo(expected)
             }
         }
 }
