@@ -1,4 +1,4 @@
-package solutions.reverse.sort
+package solutions.reverse.engineering.sort
 
 import computeReverseCostToSortList
 import org.junit.jupiter.api.DynamicTest.dynamicTest
