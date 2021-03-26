@@ -38,15 +38,19 @@ fun computeCost(state: State, drawing: Char, cjCost: Int, jcCost: Int): Pair<Sta
 
     val newState = State(drawing, false)
 
-    if(drawing == state.lastDrawing) {
-        return newState to 0
+    return newState to computeCost(state.lastDrawing, drawing, cjCost, jcCost)
+}
+
+fun computeCost(lastDrawing: Char, drawing: Char, cjCost: Int, jcCost: Int): Int {
+    if (lastDrawing == drawing) {
+        return 0
     }
 
-    if(drawing == 'J') {
-        return newState to cjCost
+    if (lastDrawing == 'C') {
+        return cjCost
     }
 
-    return newState to jcCost
+    return jcCost
 }
 
 data class ProblemInput(val cjCost: Int, val jcCost: Int, val mural: String)
