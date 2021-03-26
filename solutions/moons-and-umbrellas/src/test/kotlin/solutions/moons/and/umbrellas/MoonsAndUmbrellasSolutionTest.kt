@@ -9,7 +9,7 @@ import strikt.assertions.isEqualTo
 
 internal class MoonsAndUmbrellasSolutionTest {
     @TestFactory
-    fun `given numbers, should count number of applications of the Reverse function in order to sort the list`() =
+    fun `given problem input, should compute the smallest cost for the mural`() =
         listOf(
             ProblemInput(2, 3, "CJ?CC?") to 5,
             ProblemInput(4, 2, "CJCJ") to 10,
@@ -20,7 +20,7 @@ internal class MoonsAndUmbrellasSolutionTest {
         ).map { (problemInput, expected) ->
             dynamicTest(
                 "given \"$problemInput\", " +
-                        "should count number of applications (\"$expected\") of the Reverse function in order to sort the list"
+                        "should compute the smallest cost (\"$expected\") for the mural"
             ) {
                 expectThat(computeMuralCost(problemInput)).isEqualTo(expected)
             }
