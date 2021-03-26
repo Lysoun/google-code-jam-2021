@@ -6,7 +6,7 @@ import org.junit.jupiter.api.TestFactory
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 
-internal class SolutionTest {
+internal class ReverseSortSolutionTest {
     @TestFactory
     fun `given numbers, should count number of applications of the Reverse function in order to sort the list`() =
         listOf(
