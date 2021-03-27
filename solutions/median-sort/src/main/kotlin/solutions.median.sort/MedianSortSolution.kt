@@ -20,5 +20,46 @@ fun main(args: Array<String>) {
 }
 
 fun sortList(listSize: Int, judge: Judge): List<Int> {
-    return listOf()
+    var numbersToSort = MutableList(listSize) { it + 1 }
+
+    var triplet = numbersToSort.subList(0, 3)
+    var median = judge.askJudge(triplet)
+
+    val tripletWithoutMedian = triplet.filter { it != median }
+    var sortedNumbers = listOf(tripletWithoutMedian[0], median, tripletWithoutMedian[1])
+    numbersToSort = numbersToSort.filter { !triplet.contains(it) }.toMutableList()
+    var numberToSort: Int? = null
+    var index = 0
+
+    while(sortedNumbers.size < listSize) {
+        if(numberToSort == null) {
+            numberToSort = numbersToSort.removeFirst()
+            index = 0
+        }
+
+        triplet = (sortedNumbers.subList(index, index + 2) + listOf(numberToSort)).toMutableList()
+        median = judge.askJudge(triplet)
+
+        if(index == 0 && median == sortedNumbers[0]) {
+            sortedNumbers = listOf(numberToSort) + sortedNumbers
+            numberToSort = null
+        } else {
+            if(index == (sortedNumbers.size - 2) && median == sortedNumbers[sortedNumbers.size - 1]) {
+                sortedNumbers = sortedNumbers + listOf(numberToSort)
+                numberToSort = null
+            } else {
+                if(median == numberToSort) {
+                    sortedNumbers = (sortedNumbers.subList(0, index + 1) +
+                            listOf(numberToSort) +
+                            sortedNumbers.subList(index + 1, sortedNumbers.size)).toMutableList()
+                    numberToSort = null
+                }
+            }
+        }
+
+        ++index
+    }
+
+    judge.askJudge(sortedNumbers)
+    return sortedNumbers
 }
