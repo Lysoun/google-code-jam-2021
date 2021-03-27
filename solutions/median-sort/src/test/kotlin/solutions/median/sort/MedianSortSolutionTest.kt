@@ -1,21 +1,24 @@
-package solutions.cheating.detection
+package solutions.median.sort
 
-import findCheater
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.ValueSource
+import sortList
 import strikt.api.expectThat
-import strikt.assertions.isEqualTo
-import java.io.File
+import strikt.assertions.isTrue
 
 internal class MedianSortSolutionTest {
-    @Test
-    fun `given input sample, should find that cheater is 59`() {
+    @ParameterizedTest
+    @ValueSource(strings = ["5 4 3 2 1", "1 3 5 4 2"])
+    fun `given `(input: String) {
         // Given
-        val playersAnswers = File("src/test/resources/input_sample.txt").readLines().drop(2)
+        val goodAnswer = input.split(" ").map { it.toInt() }
+        val judge = TestJudge(goodAnswer)
 
         // When
-        val cheater = findCheater(playersAnswers)
+        val answer = sortList(5, judge)
+        val isAnswerCorrect = answer == goodAnswer || answer == goodAnswer.reversed()
 
         // Then
-        expectThat(cheater).isEqualTo(59)
+        expectThat(isAnswerCorrect).isTrue()
     }
 }
