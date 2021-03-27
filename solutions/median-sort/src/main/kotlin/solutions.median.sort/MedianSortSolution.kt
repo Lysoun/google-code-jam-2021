@@ -29,12 +29,12 @@ fun sortList(listSize: Int, judge: Judge): List<Int> {
     var sortedNumbers = listOf(tripletWithoutMedian[0], median, tripletWithoutMedian[1])
     numbersToSort = numbersToSort.filter { !triplet.contains(it) }.toMutableList()
     var numberToSort: Int? = null
-    var index = 0
+    var index = sortedNumbers.size / 2
 
     while(sortedNumbers.size < listSize) {
         if(numberToSort == null) {
             numberToSort = numbersToSort.removeFirst()
-            index = 0
+            index = sortedNumbers.size / 2
         }
 
         triplet = (sortedNumbers.subList(index, index + 2) + listOf(numberToSort)).toMutableList()
@@ -57,7 +57,11 @@ fun sortList(listSize: Int, judge: Judge): List<Int> {
             }
         }
 
-        ++index
+        if(median == triplet[1]) {
+            index = (sortedNumbers.size - index) / 2
+        } else {
+            index /= 2
+        }
     }
 
     judge.askJudge(sortedNumbers)
