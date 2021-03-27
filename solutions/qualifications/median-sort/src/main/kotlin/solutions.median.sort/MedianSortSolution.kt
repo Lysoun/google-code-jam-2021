@@ -29,38 +29,41 @@ fun sortList(listSize: Int, judge: Judge): List<Int> {
     var sortedNumbers = listOf(tripletWithoutMedian[0], median, tripletWithoutMedian[1])
     numbersToSort = numbersToSort.filter { !triplet.contains(it) }.toMutableList()
     var numberToSort: Int? = null
-    var index = sortedNumbers.size / 2
+    var left = 0
+    var right = sortedNumbers.size - 1
 
     while(sortedNumbers.size < listSize) {
         if(numberToSort == null) {
             numberToSort = numbersToSort.removeFirst()
-            index = sortedNumbers.size / 2
+            left = 0
+            right = sortedNumbers.size - 1
         }
 
-        triplet = (sortedNumbers.subList(index, index + 2) + listOf(numberToSort)).toMutableList()
+        val middle = (left + right) / 2
+        triplet = (sortedNumbers.subList(middle, middle + 2) + listOf(numberToSort)).toMutableList()
         median = judge.askJudge(triplet)
 
-        if(index == 0 && median == sortedNumbers[0]) {
+        if(middle == 0 && median == sortedNumbers[0]) {
             sortedNumbers = listOf(numberToSort) + sortedNumbers
             numberToSort = null
         } else {
-            if(index == (sortedNumbers.size - 2) && median == sortedNumbers[sortedNumbers.size - 1]) {
+            if(middle == (sortedNumbers.size - 2) && median == sortedNumbers[sortedNumbers.size - 1]) {
                 sortedNumbers = sortedNumbers + listOf(numberToSort)
                 numberToSort = null
             } else {
                 if(median == numberToSort) {
-                    sortedNumbers = (sortedNumbers.subList(0, index + 1) +
+                    sortedNumbers = (sortedNumbers.subList(0, middle + 1) +
                             listOf(numberToSort) +
-                            sortedNumbers.subList(index + 1, sortedNumbers.size)).toMutableList()
+                            sortedNumbers.subList(middle + 1, sortedNumbers.size)).toMutableList()
                     numberToSort = null
                 }
             }
         }
 
         if(median == triplet[1]) {
-            index += (sortedNumbers.size - index) / 2
+            left = middle + 1
         } else {
-            index /= 2
+            right = middle - 1
         }
     }
 
