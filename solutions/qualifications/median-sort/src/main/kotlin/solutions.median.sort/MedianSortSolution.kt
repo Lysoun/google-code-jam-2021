@@ -58,7 +58,7 @@ fun sortList(listSize: Int, judge: Judge): List<Int> {
         }
 
         if(median == triplet[1]) {
-            index = (sortedNumbers.size - index) / 2
+            index += (sortedNumbers.size - index) / 2
         } else {
             index /= 2
         }
