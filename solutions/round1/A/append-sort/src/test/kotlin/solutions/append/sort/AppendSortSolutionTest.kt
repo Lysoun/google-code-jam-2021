@@ -1,10 +1,10 @@
 package solutions.append.sort
 
+import countDigitsRequiredForAppendSort
 import org.junit.jupiter.api.DynamicTest.dynamicTest
 import org.junit.jupiter.api.TestFactory
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
-import countDigitsRequiredForAppendSort
 
 internal class AppendSortSolutionTest {
     @TestFactory
@@ -14,7 +14,8 @@ internal class AppendSortSolutionTest {
             listOf(10, 10) to 1,
             listOf(4, 19, 1) to 2,
             listOf(1, 2, 3) to 0,
-            listOf(10, 10, 10) to 2
+            listOf(10, 10, 10) to 2,
+            listOf(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1) to 12
         ).map { (numbers, expected) ->
             dynamicTest(
                 "given \"$numbers\", " +

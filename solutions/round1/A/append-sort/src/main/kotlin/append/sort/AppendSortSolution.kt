@@ -11,23 +11,39 @@ fun main(args: Array<String>) {
 fun countDigitsRequiredForAppendSort(list: List<Int>): Int {
     val sortedList = list.toMutableList()
     var digitsRequired = 0
-    var digitToAdd = 0
+    var digitsToAdd = ""
     var last = sortedList[0]
 
     for(i in 1 until list.size) {
-        if (sortedList[i] == last) {
-            ++digitToAdd
-        } else {
-            last = sortedList[i]
+        var elt = sortedList[i]
+
+        if (elt != last) {
+            last = elt
+            digitsToAdd = ""
         }
 
-        while (sortedList[i] <= sortedList[i - 1]) {
-            sortedList[i] = sortedList[i] * 10 + digitToAdd
-            ++digitsRequired
+        while (elt <= sortedList[i - 1]) {
+            elt = (sortedList[i].toString() + digitsToAdd).toInt()
+
+            if (elt <= sortedList[i - 1]) {
+                digitsToAdd = if (digitsToAdd == "") {
+                    "0"
+                } else {
+                    if (digitsToAdd[digitsToAdd.length - 1] == '9') {
+                        digitsToAdd.substring(0, digitsToAdd.length - 1) + "00"
+                    } else {
+                        digitsToAdd.substring(
+                            0,
+                            digitsToAdd.length - 1
+                        ) + (Character.getNumericValue(digitsToAdd[digitsToAdd.length - 1]) + 1).toString()
+                    }
+                }
+            }
         }
 
-        if (digitToAdd > 9) {
-            digitToAdd = 0
+        if (elt != sortedList[i]) {
+            digitsRequired += digitsToAdd.length
+            sortedList[i] = elt
         }
     }
 
