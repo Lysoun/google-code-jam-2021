@@ -5,5 +5,6 @@ include(
     "solutions:qualifications:moons-and-umbrellas",
     "solutions:qualifications:reverse-sort-engineering",
     "solutions:qualifications:cheating-detection",
-    "solutions:qualifications:median-sort"
+    "solutions:qualifications:median-sort",
+    "solutions:round1:A:append-sort"
 )
