@@ -13,7 +13,8 @@ internal class AppendSortSolutionTest {
             listOf(100, 7, 10) to 4,
             listOf(10, 10) to 1,
             listOf(4, 19, 1) to 2,
-            listOf(1, 2, 3) to 0
+            listOf(1, 2, 3) to 0,
+            listOf(10, 10, 10) to 2
         ).map { (numbers, expected) ->
             dynamicTest(
                 "given \"$numbers\", " +
