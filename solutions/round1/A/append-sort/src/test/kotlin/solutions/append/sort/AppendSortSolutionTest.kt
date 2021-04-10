@@ -8,7 +8,7 @@ import countDigitsRequiredForAppendSort
 
 internal class AppendSortSolutionTest {
     @TestFactory
-    fun `given numbers, should count number of applications of the Reverse function in order to sort the list`() =
+    fun `given numbers, should count number of digits to add for list to be sorted`() =
         listOf(
             listOf(100, 7, 10) to 4,
             listOf(10, 10) to 1,
@@ -17,7 +17,7 @@ internal class AppendSortSolutionTest {
         ).map { (numbers, expected) ->
             dynamicTest(
                 "given \"$numbers\", " +
-                        "should count number of applications (\"$expected\") of the Reverse function in order to sort the list"
+                        "should count number of digits (\"$expected\") for list to be sorted"
             ) {
                 expectThat(countDigitsRequiredForAppendSort(numbers)).isEqualTo(expected)
             }
