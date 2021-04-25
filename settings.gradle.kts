@@ -7,5 +7,6 @@ include(
     "solutions:qualifications:cheating-detection",
     "solutions:qualifications:median-sort",
     "solutions:round1:A:append-sort",
-    "solutions:round1:A:prime-time"
+    "solutions:round1:A:prime-time",
+    "solutions:round1:B:broken-clock"
 )
