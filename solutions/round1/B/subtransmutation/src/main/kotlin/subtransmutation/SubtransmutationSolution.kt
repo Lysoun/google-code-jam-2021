@@ -1,3 +1,5 @@
+import java.lang.Integer.max
+
 data class ProblemInput(val metalTypesNumber: Int, val spells: List<Int>, val unitsRequired: List<Int>)
 
 fun main(args: Array<String>) {
@@ -20,6 +22,31 @@ fun main(args: Array<String>) {
     }
 }
 
+fun applySpells(spells: List<Int>, metal: Int): List<Int> = spells.map { metal - it }.filter { it >= 0 }
+
+fun applySpells(spells:List<Int>, metalUnits: MutableList<Int>, unitsRequired: List<Int>): MutableList<Int> {
+    var found = false
+    var biggestMetalToTransmutate = metalUnits.size - 1
+
+    while(biggestMetalToTransmutate >= 0 && ! found) {
+        if(metalUnits[biggestMetalToTransmutate] > 0 &&
+            (biggestMetalToTransmutate >= unitsRequired.size ||
+                    metalUnits[biggestMetalToTransmutate] > unitsRequired[biggestMetalToTransmutate])) {
+            found = true
+        } else {
+            --biggestMetalToTransmutate
+        }
+    }
+
+    if (biggestMetalToTransmutate < 0) {
+        return metalUnits
+    }
+
+    applySpells(spells, biggestMetalToTransmutate).forEach { ++metalUnits[it] }
+    --metalUnits[biggestMetalToTransmutate]
+    return metalUnits
+}
+
 const val IMPOSSIBLE = "IMPOSSIBLE"
 
 fun findSmallestMetalToProduceAllRequiredUnits(problemInput: ProblemInput): String {
@@ -28,5 +55,35 @@ fun findSmallestMetalToProduceAllRequiredUnits(problemInput: ProblemInput): Stri
         return IMPOSSIBLE
     }
 
-    return ""
+    var i = 0
+    var found = false
+    while(!found) {
+        var lastMetalUnits: List<Int> = listOf()
+        var metalUnits = MutableList(max(problemInput.metalTypesNumber, i + 1)) {
+            if(it == i) {
+                 1
+            }
+            else {
+                 0
+            }
+        }
+        while(lastMetalUnits != metalUnits && !found) {
+            if (metalUnits
+                    .filterIndexed {index: Int, i: Int -> index < problemInput.metalTypesNumber && i < problemInput.unitsRequired[index] }
+                    .isEmpty()) {
+                found = true
+            }
+
+            if(!found) {
+                lastMetalUnits = metalUnits.toList()
+                metalUnits = applySpells(problemInput.spells, metalUnits, problemInput.unitsRequired)
+            }
+        }
+
+        if(!found) {
+            ++i
+        }
+    }
+
+    return (i + 1).toString()
 }
