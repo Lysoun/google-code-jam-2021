@@ -20,6 +20,13 @@ fun main(args: Array<String>) {
     }
 }
 
+const val IMPOSSIBLE = "IMPOSSIBLE"
+
 fun findSmallestMetalToProduceAllRequiredUnits(problemInput: ProblemInput): String {
+    if(problemInput.spells.all { it % 2 == 0 } &&
+        problemInput.unitsRequired.filterIndexed {index: Int, i: Int -> index % 2 == 1 && i > 0 }.isNotEmpty()) {
+        return IMPOSSIBLE
+    }
+
     return ""
 }
