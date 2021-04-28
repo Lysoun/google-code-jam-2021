@@ -9,5 +9,16 @@ fun main(args: Array<String>) {
 }
 
 fun computeMaximumScore(deck: List<Int>): Int {
-    return 0
+    val productGroup = mutableListOf<Int>()
+    var maximumSum = 0
+    var sum: Int
+
+    var i = deck.size - 1
+
+    while(i > 0) {
+
+        --i
+    }
+
+    return maximumSum
 }
