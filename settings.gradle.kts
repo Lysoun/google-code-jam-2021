@@ -9,5 +9,6 @@ include(
     "solutions:round1:A:append-sort",
     "solutions:round1:A:prime-time",
     "solutions:round1:B:broken-clock",
-    "solutions:round1:B:subtransmutation"
+    "solutions:round1:B:subtransmutation",
+    "solutions:round1:C:roaring-year"
 )
